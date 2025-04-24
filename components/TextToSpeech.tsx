@@ -16,9 +16,8 @@ const TextToSpeech = () => {
     setError('');
     
     try {
-      // Using browser's built-in Speech Synthesis API
       const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = 'uk-UA'; // Ukrainian language
+      utterance.lang = 'uk-UA'; 
       speechSynthesis.speak(utterance);
     } catch (err) {
       setError('An error occurred with text-to-speech conversion');

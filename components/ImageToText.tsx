@@ -10,17 +10,14 @@ const ImageToText = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
   
-  // Process image with OpenAI
   const processImageWithOpenAI = async (imageFile: File) => {
     setLoading(true);
     setError('');
     setAnalysisResult('');
     
     try {
-      // Convert the image file to base64
       const base64Image = await fileToBase64(imageFile);
       
-      // Call our API route
       const response = await axios.post('/api/analyze-image', {
         base64Image
       });
@@ -38,7 +35,6 @@ const ImageToText = () => {
     }
   };
   
-  // Helper function to convert File to base64
   const fileToBase64 = (file: File): Promise<string> => {
     return new Promise((resolve, reject) => {
       const reader = new FileReader();
@@ -52,14 +48,11 @@ const ImageToText = () => {
     const file = acceptedFiles[0];
     if (!file) return;
     
-    // Create preview
     const preview = URL.createObjectURL(file);
     setImagePreview(preview);
     
-    // Process the image with OpenAI
     await processImageWithOpenAI(file);
     
-    // Clean up the preview URL when done
     return () => URL.revokeObjectURL(preview);
   }, []);
   
@@ -69,7 +62,7 @@ const ImageToText = () => {
       'image/*': ['.jpeg', '.jpg', '.png', '.gif', '.bmp']
     },
     maxFiles: 1,
-    maxSize: 10485760 // 10MB max file size
+    maxSize: 10485760 
   });
   
   return (

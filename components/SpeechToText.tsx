@@ -14,18 +14,18 @@ const SpeechToText = () => {
       recognition = new SpeechRecognition();
       recognition.continuous = true;
       recognition.interimResults = true;
-      recognition.lang = 'uk-UA'; // Ukrainian language
+      recognition.lang = 'uk-UA'; 
       
-      recognition.onresult = (event) => {
+      recognition.onresult = (event: { results: Iterable<unknown> | ArrayLike<unknown>; }) => {
         const transcript = Array.from(event.results)
-          .map(result => result[0])
+          .map(result => (result as SpeechRecognitionResult)[0])
           .map(result => result.transcript)
           .join('');
         
         setText(transcript);
       };
       
-      recognition.onerror = (event) => {
+      recognition.onerror = (event: { error: string; }) => {
         setError('Speech recognition error: ' + event.error);
         setIsListening(false);
       };
@@ -49,18 +49,18 @@ const SpeechToText = () => {
         const recognition = new SpeechRecognition();
         recognition.continuous = true;
         recognition.interimResults = true;
-        recognition.lang = 'uk-UA'; // Ukrainian language
+        recognition.lang = 'uk-UA'; 
         
-        recognition.onresult = (event) => {
+        recognition.onresult = (event: { results: Iterable<unknown> | ArrayLike<unknown>; }) => {
           const transcript = Array.from(event.results)
-            .map(result => result[0])
+            .map(result => (result as SpeechRecognitionResult)[0])
             .map(result => result.transcript)
             .join('');
           
           setText(transcript);
         };
         
-        recognition.onerror = (event) => {
+        recognition.onerror = (event: { error: string; }) => {
           setError('Speech recognition error: ' + event.error);
           setIsListening(false);
         };
@@ -100,7 +100,6 @@ const SpeechToText = () => {
   );
 };
 
-// TypeScript declarations for Web Speech API
 declare global {
   interface Window {
     SpeechRecognition: typeof SpeechRecognition;
